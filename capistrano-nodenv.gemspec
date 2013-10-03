@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jidonoso@gmail.com"]
   gem.description   = %q{nodenv integration for Capistrano}
   gem.summary       = %q{nodenv integration for Capistrano}
-  gem.homepage      = "https://github.com/capistrano/nodenv"
+  gem.homepage      = "https://github.com/platanus/capistrano-nodenv"
 
   gem.files         = `git ls-files`.split($/)
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
