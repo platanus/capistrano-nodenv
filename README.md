@@ -20,6 +20,7 @@ And then execute:
 
     set :nodenv_type, :user # or :system, depends on your nodenv setup
     set :nodenv_node, '0.10.3'
+    set :nodenv_roles, :all # default value
 
 If your nodenv is located in some custom path, you can use `nodenv_custom_path` to set it.
 

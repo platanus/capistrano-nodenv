@@ -15,7 +15,7 @@ end
 
 namespace :nodenv do
   task :check do
-    on roles(:all) do
+    on roles(fetch(:nodenv_roles)) do
       nodenv_node = fetch(:nodenv_node)
       if nodenv_node.nil?
         error "nodenv: nodenv_node is not set"
@@ -41,6 +41,8 @@ namespace :load do
         "~/.nodenv"
       end
     }
+
+    set :nodenv_roles, fetch(:nodenv_roles, :all)
 
     set :nodenv_node_dir, -> { "#{fetch(:nodenv_path)}/versions/#{fetch(:nodenv_node)}" }
     set :nodenv_map_bins, %w{node npm}
