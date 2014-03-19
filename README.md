@@ -1,4 +1,4 @@
-# Capistrano::nodenv
+# Capistrano::nodenv [![Gem Version](https://badge.fury.io/rb/capistrano-nodenv.png)](http://badge.fury.io/rb/capistrano-nodenv)
 
 ## Installation
 
