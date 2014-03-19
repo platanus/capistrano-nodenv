@@ -17,6 +17,8 @@ namespace :nodenv do
   task :map_bins do
     nodenv_prefix = "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_ruby)} #{fetch(:nodenv_path)}/bin/nodenv exec"
 
+    SSHKit.config.command_map[:nodenv] = "#{fetch(:nodenv_path)}/bin/nodenv"
+
     fetch(:nodenv_map_bins).each do |command|
       SSHKit.config.command_map.prefix[command.to_sym].unshift(nodenv_prefix)
     end
