@@ -26,6 +26,10 @@ And then execute:
 
 If your nodenv is located in some custom path, you can use `nodenv_custom_path` to set it.
 
+## Thanks
+
+Thanks to [capistrano/rbenv constributors](https://github.com/capistrano/rbenv/graphs/contributors) becasue I just modified that gem to work with nodenv
+
 ## Contributing
 
 1. Fork it
