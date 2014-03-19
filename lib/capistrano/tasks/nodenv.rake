@@ -1,18 +1,3 @@
-SSHKit.config.command_map = Hash.new do |hash, key|
-  if fetch(:nodenv_map_bins).include?(key.to_s)
-    prefix = "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_node)} #{fetch(:nodenv_path)}/bin/nodenv exec"
-    hash[key] = "#{prefix} #{key}"
-  else
-    hash[key] = key
-  end
-end
-
-namespace :deploy do
-  before :starting, :hook_nodenv_bins do
-    invoke :'nodenv:check'
-  end
-end
-
 namespace :nodenv do
   task :check do
     on roles(fetch(:nodenv_roles)) do
@@ -28,11 +13,23 @@ namespace :nodenv do
       end
     end
   end
+
+  task :map_bins do
+    nodenv_prefix = "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_ruby)} #{fetch(:nodenv_path)}/bin/nodenv exec"
+
+    fetch(:nodenv_map_bins).each do |command|
+      SSHKit.config.command_map.prefix[command.to_sym].unshift(nodenv_prefix)
+    end
+  end
+end
+
+Capistrano::DSL.stages.each do |stage|
+  after stage, 'nodenv:map_bins'
+  after stage, 'nodenv:check'
 end
 
 namespace :load do
   task :defaults do
-
     set :nodenv_path, -> {
       nodenv_path = fetch(:nodenv_custom_path)
       nodenv_path ||= if fetch(:nodenv_type, :user) == :system
