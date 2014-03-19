@@ -1,5 +1,5 @@
 namespace :nodenv do
-  task :check do
+  task :validate do
     on roles(fetch(:nodenv_roles)) do
       nodenv_node = fetch(:nodenv_node)
       if nodenv_node.nil?
@@ -15,8 +15,8 @@ namespace :nodenv do
   end
 
   task :map_bins do
-    nodenv_prefix = "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_ruby)} #{fetch(:nodenv_path)}/bin/nodenv exec"
-
+    SSHKit.config.default_env.merge!({ nodenv_root: fetch(:nodenv_path), nodenv_version: fetch(:nodenv_ruby) })
+    nodenv_prefix = fetch(:nodenv_prefix, proc { "#{fetch(:nodenv_path)}/bin/nodenv exec" })
     SSHKit.config.command_map[:nodenv] = "#{fetch(:nodenv_path)}/bin/nodenv"
 
     fetch(:nodenv_map_bins).each do |command|
@@ -26,8 +26,8 @@ namespace :nodenv do
 end
 
 Capistrano::DSL.stages.each do |stage|
+  after stage, 'nodenv:validate'
   after stage, 'nodenv:map_bins'
-  after stage, 'nodenv:check'
 end
 
 namespace :load do
