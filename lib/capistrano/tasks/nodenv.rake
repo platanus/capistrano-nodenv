@@ -15,7 +15,7 @@ namespace :nodenv do
   end
 
   task :map_bins do
-    SSHKit.config.default_env.merge!({ nodenv_root: fetch(:nodenv_path), nodenv_version: fetch(:nodenv_ruby) })
+    SSHKit.config.default_env.merge!({ nodenv_root: fetch(:nodenv_path), nodenv_version: fetch(:nodenv_node) })
     nodenv_prefix = fetch(:nodenv_prefix, proc { "#{fetch(:nodenv_path)}/bin/nodenv exec" })
     SSHKit.config.command_map[:nodenv] = "#{fetch(:nodenv_path)}/bin/nodenv"
 

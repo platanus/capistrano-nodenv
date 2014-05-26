@@ -22,7 +22,7 @@ require 'capistrano/nodenv'
 
 set :nodenv_type, :user # or :system, depends on your nodenv setup
 set :nodenv_node, '0.10.3'
-set :nodenv_prefix, "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_ruby)} #{fetch(:nodenv_path)}/bin/nodenv exec"
+set :nodenv_prefix, "NODENV_ROOT=#{fetch(:nodenv_path)} NODENV_VERSION=#{fetch(:nodenv_node)} #{fetch(:nodenv_path)}/bin/nodenv exec"
 set :nodenv_map_bins, %w{node npm}
 set :nodenv_roles, :all # default value
 ```
