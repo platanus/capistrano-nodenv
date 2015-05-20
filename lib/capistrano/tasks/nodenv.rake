@@ -7,7 +7,7 @@ namespace :nodenv do
         exit 1
       end
 
-      if test "[ ! -d #{fetch(:nodenv_node_dir)} ]"
+      unless test "[ -d #{fetch(:nodenv_node_dir)} ]"
         error "nodenv: #{nodenv_node} is not installed or not found in #{fetch(:nodenv_node_dir)}"
         exit 1
       end
