@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "capistrano-nodenv"
-  gem.version       = '1.0.1'
+  gem.version       = '1.1.0'
   gem.authors       = ["Juan Ignacio Donoso"]
   gem.email         = ["jidonoso@gmail.com"]
   gem.description   = %q{nodenv integration for Capistrano}
