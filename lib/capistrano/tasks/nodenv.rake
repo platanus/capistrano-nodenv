@@ -37,7 +37,7 @@ namespace :load do
       nodenv_path ||= if fetch(:nodenv_type, :user) == :system
         "/usr/local/nodenv"
       else
-        "~/.nodenv"
+        "$HOME/.nodenv"
       end
     }
 
