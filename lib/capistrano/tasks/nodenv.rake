@@ -8,8 +8,13 @@ namespace :nodenv do
       end
 
       unless test "[ -d #{fetch(:nodenv_node_dir)} ]"
-        error "nodenv: #{nodenv_node} is not installed or not found in #{fetch(:nodenv_node_dir)}"
-        exit 1
+        if fetch(:nodenv_install_missing_nodes)
+          SSHKit.config.command_map[:nodenv] = "#{fetch(:nodenv_path)}/bin/nodenv"
+          execute :nodenv, :install, fetch(:nodenv_node)
+        else
+          error "nodenv: #{nodenv_node} is not installed or not found in #{fetch(:nodenv_node_dir)}"
+          exit 1
+        end
       end
     end
   end
@@ -42,6 +47,8 @@ namespace :load do
     }
 
     set :nodenv_roles, fetch(:nodenv_roles, :all)
+
+    set :nodenv_install_missing_nodes, fetch(:nodenv_install_missing_nodes, false)
 
     set :nodenv_node_dir, -> { "#{fetch(:nodenv_path)}/versions/#{fetch(:nodenv_node)}" }
     set :nodenv_map_bins, %w{node npm}
